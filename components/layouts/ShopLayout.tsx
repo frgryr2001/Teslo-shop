@@ -3,7 +3,7 @@ import React, { FC } from "react";
 import { Navbar, SideMenu } from "../ui";
 
 interface Props {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   title: string;
   pageDescription: string;
   imageFullUrl?: string;
