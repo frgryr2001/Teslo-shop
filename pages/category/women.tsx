@@ -1,28 +1,30 @@
 import { Typography } from "@mui/material";
-import { ShopLayout } from "../components/layouts";
-import { ProductList } from "../components/products";
-import { FullScreenLoading } from "../components/ui";
-import { useProducts } from "../hooks";
+import { NextPage } from "next";
+import { ShopLayout } from "../../components/layouts";
+import { ProductList } from "../../components/products";
+import { FullScreenLoading } from "../../components/ui";
+import { useProducts } from "../../hooks";
 
-export default function HomePage() {
-  const { products, isLoading, isError } = useProducts("/products");
+const WomenPage: NextPage = () => {
+  const { products, isLoading, isError } = useProducts(
+    "/products?gender=women"
+  );
 
   return (
     <>
       <ShopLayout
-        title={"Teslo-Shop"}
+        title={"Teslo-Shop - Women"}
         pageDescription={
           "Clothing shop is is a fashion brand that offers the latest models today"
         }
       >
         <Typography variant="h1" component="h1">
-          Store
+          Women
         </Typography>
         <Typography variant="h2" sx={{ mb: 1 }}>
-          All Products
+          Product for the women
         </Typography>
         {/* <FullScreenLoading /> */}
-
         {isLoading ? (
           <FullScreenLoading />
         ) : (
@@ -31,4 +33,5 @@ export default function HomePage() {
       </ShopLayout>
     </>
   );
-}
+};
+export default WomenPage;
