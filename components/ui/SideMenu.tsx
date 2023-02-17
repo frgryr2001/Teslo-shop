@@ -24,23 +24,46 @@ import {
   SearchOutlined,
   VpnKeyOutlined,
 } from "@mui/icons-material";
+import { useContext, useState } from "react";
+import { UiContext } from "../../context";
+import { useRouter } from "next/router";
 
 export const SideMenu = () => {
+  const router = useRouter();
+  const { isMenuOpen, toggleSideMenu } = useContext(UiContext);
+  const [searchTerm, setSearchTerm] = useState<String>("");
+  const navagateTo = (url: string) => {
+    toggleSideMenu();
+    router.push(url);
+  };
+
+  const onSearchTerm = () => {
+    if (searchTerm.trim().length === 0) return;
+
+    navagateTo(`/search/${searchTerm}`);
+  };
   return (
     <Drawer
-      open={false}
+      open={isMenuOpen}
       anchor="right"
       sx={{ backdropFilter: "blur(4px)", transition: "all 0.5s ease-out" }}
+      onClose={toggleSideMenu}
     >
       <Box sx={{ width: 250, paddingTop: 5 }}>
         <List>
           <ListItem>
             <Input
               type="text"
+              value={searchTerm}
               placeholder="Search..."
+              onChange={(e) => setSearchTerm(e.target.value)}
+              onKeyPress={(e) => (e.key === "Enter" ? onSearchTerm() : null)}
               endAdornment={
                 <InputAdornment position="end">
-                  <IconButton aria-label="toggle password visibility">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={onSearchTerm}
+                  >
                     <SearchOutlined />
                   </IconButton>
                 </InputAdornment>
@@ -62,21 +85,30 @@ export const SideMenu = () => {
             <ListItemText primary={"Order"} />
           </ListItemButton>
 
-          <ListItemButton sx={{ display: { xs: "", sm: "none" } }}>
+          <ListItemButton
+            sx={{ display: { xs: "", sm: "none" } }}
+            onClick={() => navagateTo("/category/men")}
+          >
             <ListItemIcon>
               <MaleOutlined />
             </ListItemIcon>
             <ListItemText primary={"Man"} />
           </ListItemButton>
 
-          <ListItemButton sx={{ display: { xs: "", sm: "none" } }}>
+          <ListItemButton
+            sx={{ display: { xs: "", sm: "none" } }}
+            onClick={() => navagateTo("/category/women")}
+          >
             <ListItemIcon>
               <FemaleOutlined />
             </ListItemIcon>
             <ListItemText primary={"Woman"} />
           </ListItemButton>
 
-          <ListItemButton sx={{ display: { xs: "", sm: "none" } }}>
+          <ListItemButton
+            sx={{ display: { xs: "", sm: "none" } }}
+            onClick={() => navagateTo("/category/kid")}
+          >
             <ListItemIcon>
               <EscalatorWarningOutlined />
             </ListItemIcon>

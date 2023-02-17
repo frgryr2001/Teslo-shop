@@ -4,9 +4,10 @@ import { ShopLayout } from "../../components/layouts";
 import { ProductList } from "../../components/products";
 import { FullScreenLoading } from "../../components/ui";
 import { useProducts } from "../../hooks";
+import { IProduct } from "../../interfaces/products";
 
 const WomenPage: NextPage = () => {
-  const { products, isLoading, isError } = useProducts(
+  const { products, isLoading, isError } = useProducts<IProduct[]>(
     "/products?gender=women"
   );
 

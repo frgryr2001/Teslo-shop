@@ -4,9 +4,12 @@ import { ShopLayout } from "../../components/layouts";
 import { ProductList } from "../../components/products";
 import { FullScreenLoading } from "../../components/ui";
 import { useProducts } from "../../hooks";
+import { IProduct } from "../../interfaces/products";
 
 const MenPage: NextPage = () => {
-  const { products, isLoading, isError } = useProducts("/products?gender=men");
+  const { products, isLoading, isError } = useProducts<IProduct[]>(
+    "/products?gender=men"
+  );
 
   return (
     <>

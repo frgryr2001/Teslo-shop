@@ -3,9 +3,10 @@ import { ShopLayout } from "../components/layouts";
 import { ProductList } from "../components/products";
 import { FullScreenLoading } from "../components/ui";
 import { useProducts } from "../hooks";
+import { IProduct } from "../interfaces/products";
 
 export default function HomePage() {
-  const { products, isLoading, isError } = useProducts("/products");
+  const { products, isLoading, isError } = useProducts<IProduct[]>("/products");
 
   return (
     <>

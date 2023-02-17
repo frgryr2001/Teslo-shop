@@ -3,10 +3,13 @@ import { NextPage } from "next";
 import { ShopLayout } from "../../components/layouts";
 import { ProductList } from "../../components/products";
 import { FullScreenLoading } from "../../components/ui";
+import { IProduct } from "../../interfaces/products";
 import { useProducts } from "../../hooks";
 
 const KidPage: NextPage = () => {
-  const { products, isLoading, isError } = useProducts("/products?gender=kid");
+  const { products, isLoading, isError } = useProducts<IProduct[]>(
+    "/products?gender=kid"
+  );
 
   return (
     <>
@@ -22,7 +25,7 @@ const KidPage: NextPage = () => {
         <Typography variant="h2" sx={{ mb: 1 }}>
           Product for the kid
         </Typography>
-        a{/* <FullScreenLoading /> */}
+        {/* <FullScreenLoading /> */}
         {isLoading ? (
           <FullScreenLoading />
         ) : (
