@@ -1,17 +1,57 @@
-import { GetServerSideProps, GetStaticPaths } from "next";
+import { GetServerSideProps, GetStaticPaths, GetStaticProps } from "next";
+import { useState, useContext } from "react";
 import { Box, Button, Chip, Grid, Typography } from "@mui/material";
 import { NextPage } from "next";
 import { ShopLayout } from "../../components/layouts";
 import { ProductSizes, ProductSlideShow } from "../../components/products";
 import { ItemCounter } from "../../components/ui";
-import { IProduct } from "../../interfaces";
+import { ICartProduct, IProduct } from "../../interfaces";
 import { dbProducts } from "../../database";
+import { ISize } from "../../interfaces/products";
+import { useRouter } from "next/router";
+import { CartContext } from "../../context/cart/CartContext";
 
 interface Props {
   product: IProduct;
 }
 
 const ProductPage: NextPage<Props> = ({ product }) => {
+  const router = useRouter();
+  const { addProductToCart } = useContext(CartContext);
+  const [tempCartProduct, setTempCartProduct] = useState<ICartProduct>({
+    _id: product._id,
+    images: product.images[0],
+    price: product.price,
+    size: undefined,
+    type: product.type,
+    slug: product.slug,
+    title: product.title,
+    quantity: 1,
+  });
+
+  const onSelectedSize = (size: ISize) => {
+    setTempCartProduct((currentProduct) => ({
+      ...currentProduct,
+      size,
+    }));
+  };
+  const onAddProduct = () => {
+    if (!tempCartProduct.size) {
+      return;
+    }
+
+    addProductToCart(tempCartProduct);
+    router.push("/cart");
+  };
+  const updateQuantity = (newQuantity: number) => {
+    if (newQuantity === 0) {
+      return;
+    }
+    setTempCartProduct((currentProduct) => ({
+      ...currentProduct,
+      quantity: newQuantity,
+    }));
+  };
   return (
     <ShopLayout title={product.title} pageDescription={"This is a product"}>
       <Grid container spacing={3}>
@@ -30,16 +70,32 @@ const ProductPage: NextPage<Props> = ({ product }) => {
             </Typography>
             <Box sx={{ my: 2 }}>
               <Typography variant="subtitle2">Quantity</Typography>
-              <ItemCounter />
+              <ItemCounter
+                currentValue={tempCartProduct.quantity}
+                updateQuantity={updateQuantity}
+                maxValue={product.inStock > 5 ? 5 : product.inStock}
+              />
               <ProductSizes
-                // selectedSize={product.sizes[0]}
+                selectedSize={tempCartProduct.size}
                 sizes={product.sizes}
+                onSelectedSize={onSelectedSize}
               />
             </Box>
-            <Button color="secondary" className="circular-btn">
-              Add to cart
-            </Button>
-            {/* <Chip label="Nothing available" color="error" variant="outlined" /> */}
+            {product.inStock > 0 ? (
+              <Button
+                color="secondary"
+                className="circular-btn"
+                onClick={onAddProduct}
+              >
+                {tempCartProduct.size ? "Add to cart" : "Select a size"}
+              </Button>
+            ) : (
+              <Chip
+                label="Nothing available"
+                color="error"
+                variant="outlined"
+              />
+            )}
 
             <Box sx={{ my: 3 }}>
               <Typography variant="subtitle2">Description</Typography>
@@ -87,7 +143,7 @@ export const getStaticPaths: GetStaticPaths = async (ctx) => {
   };
 };
 //getStaticProps...
-import { GetStaticProps } from "next";
+
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { slug = "" } = params as { slug: string };
   const product = await dbProducts.getProductBySlug(slug);
