@@ -1,14 +1,31 @@
-import { CartState } from "./CartProvider";
-import { ICartProduct } from "../../interfaces";
+import { CartState } from './CartProvider';
+import { ICartProduct } from '../../interfaces';
 
 type CartActionType =
   | {
-      type: "[Cart] - LoadCart from cookies | storage";
+      type: '[Cart] - LoadCart from cookies | storage';
       payload: ICartProduct[];
     }
   | {
-      type: "[Cart] - Add product";
+      type: '[Cart] - Update product';
       payload: ICartProduct;
+    }
+  | {
+      type: '[Cart] - Change  product quanity in Cart';
+      payload: ICartProduct;
+    }
+  | {
+      type: '[Cart] - Remove product in Cart';
+      payload: ICartProduct;
+    }
+  | {
+      type: '[Cart] - Update order summary';
+      payload: {
+        numberOfItems: number;
+        subTotal: number;
+        tax: number;
+        total: number;
+      };
     };
 
 export const cartReducer = (
@@ -16,14 +33,12 @@ export const cartReducer = (
   action: CartActionType
 ): CartState => {
   switch (action.type) {
-    case "[Cart] - LoadCart from cookies | storage":
-      console.log("Error here", action.payload);
-
+    case '[Cart] - LoadCart from cookies | storage':
       return {
         ...state,
-        // cart: [...action.payload],
+        cart: [...action.payload],
       };
-    case "[Cart] - Add product":
+    case '[Cart] - Update product':
       if (state.cart.length === 0) {
         return {
           ...state,
@@ -54,7 +69,36 @@ export const cartReducer = (
         ...state,
         cart: [...state.cart, action.payload],
       };
+    case '[Cart] - Change  product quanity in Cart':
+      return {
+        ...state,
+        cart: state.cart.map((product) => {
+          if (
+            product._id === action.payload._id &&
+            product.size === action.payload.size
+          ) {
+            return action.payload;
+          }
+          return product;
+        }),
+      };
 
+    case '[Cart] - Remove product in Cart':
+      return {
+        ...state,
+        cart: state.cart.filter((product) => {
+          return (
+            product._id !== action.payload._id &&
+            product.size !== action.payload.size
+          );
+        }),
+      };
+
+    case '[Cart] - Update order summary':
+      return {
+        ...state,
+        ...action.payload,
+      };
     default:
       return {
         ...state,

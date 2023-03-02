@@ -1,6 +1,6 @@
-import { FC } from "react";
-import { Box, IconButton, Typography } from "@mui/material";
-import { AddCircleOutline, RemoveCircleOutline } from "@mui/icons-material";
+import { FC } from 'react';
+import { Box, IconButton, Typography } from '@mui/material';
+import { AddCircleOutline, RemoveCircleOutline } from '@mui/icons-material';
 
 interface Props {
   currentValue: number;
@@ -33,15 +33,15 @@ export const ItemCounter: FC<Props> = ({
   };
 
   return (
-    <Box display={"flex"} alignItems="center">
-      <IconButton>
-        <RemoveCircleOutline onClick={addRemoveClickHandler.bind(null, -1)} />
+    <Box display={'flex'} alignItems="center">
+      <IconButton onClick={() => addRemoveClickHandler(-1)}>
+        <RemoveCircleOutline />
       </IconButton>
-      <Typography sx={{ width: 40, textAlign: "center" }}>
+      <Typography sx={{ width: 40, textAlign: 'center' }}>
         {currentValue}
       </Typography>
-      <IconButton>
-        <AddCircleOutline onClick={addRemoveClickHandler.bind(null, 1)} />
+      <IconButton onClick={() => addRemoveClickHandler(1)}>
+        <AddCircleOutline />
       </IconButton>
     </Box>
   );

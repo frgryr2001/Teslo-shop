@@ -6,25 +6,25 @@ import {
   Typography,
   Box,
   Button,
-} from "@mui/material";
-import React from "react";
-import { CartList, OrderSummary } from "../../components/cart";
-import { ShopLayout } from "../../components/layouts/ShopLayout";
+} from '@mui/material';
+import React from 'react';
+import { CartList, OrderSummary } from '../../components/cart';
+import { ShopLayout } from '../../components/layouts/ShopLayout';
 
 const CartPage = () => {
   return (
     <ShopLayout
-      title={"Cart - 3"}
-      pageDescription={"Shopping cart description of the store"}
+      title={'Cart - 3'}
+      pageDescription={'Shopping cart description of the store'}
     >
-      <Typography variant="h1" component={"h1"}>
+      <Typography variant="h1" component={'h1'}>
         Cart
       </Typography>
 
       <Grid container>
         <Grid item xs={12} sm={7}>
           {/* CartList */}
-          <CartList editable />
+          <CartList editable={true} />
         </Grid>
 
         <Grid item xs={12} sm={5}>
