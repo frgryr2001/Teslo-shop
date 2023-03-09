@@ -1,7 +1,7 @@
-import type { NextApiRequest, NextApiResponse } from "next";
-import { db, SHOP_CONSTANTS } from "../../../database";
-import Product from "../../../models/Product";
-import { IProduct } from "../../../interfaces/products";
+import type { NextApiRequest, NextApiResponse } from 'next';
+import { db, SHOP_CONSTANTS } from '../../../database';
+import Product from '../../../models/Product';
+import { IProduct } from '../../../interfaces/products';
 
 type Data =
   | {
@@ -10,22 +10,25 @@ type Data =
   | IProduct[];
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default function (req: NextApiRequest, res: NextApiResponse<Data>) {
+export default function handler(
+  req: NextApiRequest,
+  res: NextApiResponse<Data>
+) {
   switch (req.method) {
-    case "GET":
+    case 'GET':
       return getProducts(req, res);
     default:
       return res.status(400).json({
-        message: "Bad request",
+        message: 'Bad request',
       });
   }
 }
 
 const getProducts = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
-  const { gender = "all" } = req.query;
+  const { gender = 'all' } = req.query;
   let condition = {};
   if (
-    gender !== "all" &&
+    gender !== 'all' &&
     SHOP_CONSTANTS.validGenders.includes(gender as string)
   ) {
     condition = { gender: gender };
@@ -33,7 +36,7 @@ const getProducts = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
 
   await db.connect();
   const products = await Product.find(condition)
-    .select("title images price inStock slug")
+    .select('title images price inStock slug')
     .lean();
   await db.disconnect();
 
