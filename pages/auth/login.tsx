@@ -14,11 +14,16 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { validations } from '../../utils';
 import requestApi from '../../api/requestApi';
 import { ErrorOutline } from '@mui/icons-material';
+import { useContext } from 'react';
+import { AuthContext } from '../../context';
+import { useRouter } from 'next/router';
 type FormData = {
   email: string;
   password: string;
 };
 const LoginPage = () => {
+  const router = useRouter();
+  const { loginUser } = useContext(AuthContext);
   const {
     register,
     handleSubmit,
@@ -30,30 +35,16 @@ const LoginPage = () => {
     email,
     password,
   }: FormData) => {
-    try {
-      setError(null);
-      const { data } = await requestApi.post(
-        '/user/login',
-        {
-          email,
-          password,
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
-      );
-      const { token, user } = data;
-      console.log(token, user);
-    } catch (error: any) {
-      setError(error.response.data.message);
+    setError(null);
+
+    const isValidLogin = await loginUser(email, password);
+    if (!isValidLogin) {
+      setError('Your email or password is incorrect');
       setTimeout(() => {
         setError(null);
       }, 3000);
     }
-
-    // To do something with the data
+    router.replace('/');
   };
 
   return (
@@ -84,6 +75,10 @@ const LoginPage = () => {
 
             <Grid item xs={12}>
               <TextField
+                label="Password"
+                type="password"
+                variant="filled"
+                fullWidth
                 {...register('password', {
                   required: 'Please enter a password',
                   minLength: {
@@ -91,10 +86,6 @@ const LoginPage = () => {
                     message: 'Password must have at least 6 characters',
                   },
                 })}
-                label="Password"
-                type="password"
-                variant="filled"
-                fullWidth
                 error={!!errors.password}
                 helperText={errors.password?.message}
               />

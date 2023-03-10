@@ -70,6 +70,17 @@ export const cartReducer = (
         cart: [...state.cart, action.payload],
       };
     case '[Cart] - Change  product quanity in Cart':
+      if (action.payload.quantity === 0) {
+        return {
+          ...state,
+          cart: state.cart.filter((product) => {
+            return (
+              product._id !== action.payload._id &&
+              product.size !== action.payload.size
+            );
+          }),
+        };
+      }
       return {
         ...state,
         cart: state.cart.map((product) => {
