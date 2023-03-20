@@ -10,20 +10,21 @@ import {
 import React from 'react';
 import { AuthLayout } from '../../components/layouts';
 import NextLink from 'next/link';
+import { GetServerSideProps } from 'next';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { validations } from '../../utils';
-import requestApi from '../../api/requestApi';
+import { getSession, signIn } from 'next-auth/react';
 import { ErrorOutline } from '@mui/icons-material';
-import { useContext } from 'react';
-import { AuthContext } from '../../context';
 import { useRouter } from 'next/router';
+// import { useContext } from 'react';
+// import { AuthContext } from '../../context';
 type FormData = {
   email: string;
   password: string;
 };
 const LoginPage = () => {
   const router = useRouter();
-  const { loginUser } = useContext(AuthContext);
+  // const { loginUser } = useContext(AuthContext);
   const {
     register,
     handleSubmit,
@@ -37,14 +38,19 @@ const LoginPage = () => {
   }: FormData) => {
     setError(null);
 
-    const isValidLogin = await loginUser(email, password);
-    if (!isValidLogin) {
-      setError('Your email or password is incorrect');
-      setTimeout(() => {
-        setError(null);
-      }, 3000);
-    }
-    router.replace('/');
+    // const isValidLogin = await loginUser(email, password);
+    // console.log(isValidLogin);
+
+    // if (!isValidLogin) {
+    //   setError('Your email or password is incorrect');
+    //   setTimeout(() => {
+    //     setError(null);
+    //   }, 3000);
+    // } else {
+    //   const destination = router.query.p?.toString() || '/';
+    //   router.replace(destination);
+    // }
+    await signIn('credentials', { email, password });
   };
 
   return (
@@ -118,7 +124,15 @@ const LoginPage = () => {
             </Grid>
 
             <Grid item xs={12} display="flex" justifyContent={'end'}>
-              <NextLink href={'/auth/register'} passHref legacyBehavior>
+              <NextLink
+                href={
+                  router.query.p
+                    ? `/auth/register?p=${router.query.p}`
+                    : '/auth/register'
+                }
+                passHref
+                legacyBehavior
+              >
                 <Link underline="always">Do not have an account? Register</Link>
               </NextLink>
             </Grid>
@@ -127,6 +141,27 @@ const LoginPage = () => {
       </form>
     </AuthLayout>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async ({
+  req,
+  query,
+}) => {
+  const session = await getSession({ req });
+  console.log({ session });
+
+  const { p = '/' } = query;
+  if (session) {
+    return {
+      redirect: {
+        destination: p.toString(),
+        permanent: false,
+      },
+    };
+  }
+  return {
+    props: {},
+  };
 };
 
 export default LoginPage;

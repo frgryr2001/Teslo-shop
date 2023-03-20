@@ -7,16 +7,33 @@ import {
   Box,
   Button,
   Link,
-} from "@mui/material";
-import React from "react";
-import { CartList, OrderSummary } from "../../components/cart";
-import { ShopLayout } from "../../components/layouts";
-import NextLink from "next/link";
+} from '@mui/material';
+import React from 'react';
+import { useContext } from 'react';
+import { CartContext } from '../../context/cart/CartContext';
+import { CartList, OrderSummary } from '../../components/cart';
+import { ShopLayout } from '../../components/layouts';
+import NextLink from 'next/link';
+import { countries } from '../../utils/countries';
 
-const CartPage = () => {
+const SummaryPage = () => {
+  const { ShippingAddress, numberOfItems } = useContext(CartContext);
+  if (!ShippingAddress) {
+    return <></>;
+  }
+  const {
+    firstName,
+    lastName,
+    address,
+    address2 = '',
+    city,
+    country,
+    phone,
+    zip,
+  } = ShippingAddress;
   return (
-    <ShopLayout title={"Order Summary"} pageDescription={"Order Summary"}>
-      <Typography variant="h1" component={"h1"}>
+    <ShopLayout title={'Order Summary'} pageDescription={'Order Summary'}>
+      <Typography variant="h1" component={'h1'}>
         Order Summary
       </Typography>
 
@@ -29,27 +46,38 @@ const CartPage = () => {
         <Grid item xs={12} sm={5}>
           <Card className="summary-card">
             <CardContent>
-              <Typography variant="h2">Summary (3 products)</Typography>
+              <Typography variant="h2">
+                Summary ({numberOfItems}{' '}
+                {numberOfItems === 1 ? 'item' : 'items'})
+              </Typography>
               <Divider sx={{ my: 1 }} />
 
               <Box display="flex" justifyContent="space-between">
                 <Typography variant="subtitle1">Address delivery</Typography>
-                <NextLink href={"/checkout/address"} passHref legacyBehavior>
+                <NextLink href={'/checkout/address'} passHref legacyBehavior>
                   <Link underline="always">Edit</Link>
                 </NextLink>
               </Box>
 
-              <Typography>Le Hoang Nhan</Typography>
-              <Typography>ABC street</Typography>
-              <Typography>District 123</Typography>
-              <Typography>TEST</Typography>
-              <Typography>VIETNAM</Typography>
-              <Typography>+123123213123</Typography>
+              <Typography>
+                {firstName} {lastName}
+              </Typography>
+              <Typography>
+                {address} {address2 ? `, ${address2}` : ''}
+              </Typography>
+              <Typography>
+                {city} , {zip}
+              </Typography>
+              <Typography>
+                {countries.find((c) => c.code === country)?.name}
+              </Typography>
+
+              <Typography>+{phone}</Typography>
 
               <Divider sx={{ my: 1 }} />
 
               <Box display="flex" justifyContent="end">
-                <NextLink href={"/cart"} passHref legacyBehavior>
+                <NextLink href={'/cart'} passHref legacyBehavior>
                   <Link underline="always">Cart</Link>
                 </NextLink>
               </Box>
@@ -68,4 +96,4 @@ const CartPage = () => {
   );
 };
 
-export default CartPage;
+export default SummaryPage;

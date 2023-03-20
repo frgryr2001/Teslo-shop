@@ -1,19 +1,20 @@
-import { Typography } from "@mui/material";
-import { ShopLayout } from "../components/layouts";
-import { ProductList } from "../components/products";
-import { FullScreenLoading } from "../components/ui";
-import { useProducts } from "../hooks";
-import { IProduct } from "../interfaces/products";
+import { Typography } from '@mui/material';
+import { useSession } from 'next-auth/react';
+import { ShopLayout } from '../components/layouts';
+import { ProductList } from '../components/products';
+import { FullScreenLoading } from '../components/ui';
+import { useProducts } from '../hooks';
+import { IProduct } from '../interfaces/products';
 
 export default function HomePage() {
-  const { products, isLoading, isError } = useProducts<IProduct[]>("/products");
+  const { products, isLoading } = useProducts<IProduct[]>('/products');
 
   return (
     <>
       <ShopLayout
-        title={"Teslo-Shop"}
+        title={'Teslo-Shop'}
         pageDescription={
-          "Clothing shop is is a fashion brand that offers the latest models today"
+          'Clothing shop is is a fashion brand that offers the latest models today'
         }
       >
         <Typography variant="h1" component="h1">
