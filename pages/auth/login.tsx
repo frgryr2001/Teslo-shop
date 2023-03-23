@@ -6,6 +6,7 @@ import {
   Typography,
   Link,
   Chip,
+  Divider,
 } from '@mui/material';
 import React from 'react';
 import { AuthLayout } from '../../components/layouts';
@@ -13,43 +14,37 @@ import NextLink from 'next/link';
 import { GetServerSideProps } from 'next';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { validations } from '../../utils';
-import { getSession, signIn } from 'next-auth/react';
-import { ErrorOutline } from '@mui/icons-material';
+import { getSession, signIn, getProviders } from 'next-auth/react';
+import { ErrorOutline, GitHub } from '@mui/icons-material';
 import { useRouter } from 'next/router';
-// import { useContext } from 'react';
-// import { AuthContext } from '../../context';
+import { useEffect } from 'react';
+
 type FormData = {
   email: string;
   password: string;
 };
 const LoginPage = () => {
   const router = useRouter();
-  // const { loginUser } = useContext(AuthContext);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>();
   const [error, setError] = React.useState<string | null>(null);
+  const [providers, setProviders] = React.useState<any>({});
+
+  useEffect(() => {
+    getProviders().then((prov) => {
+      setProviders(prov);
+    });
+  }, []);
 
   const onSubmit: SubmitHandler<FormData> = async ({
     email,
     password,
   }: FormData) => {
-    setError(null);
-
-    // const isValidLogin = await loginUser(email, password);
-    // console.log(isValidLogin);
-
-    // if (!isValidLogin) {
-    //   setError('Your email or password is incorrect');
-    //   setTimeout(() => {
-    //     setError(null);
-    //   }, 3000);
-    // } else {
-    //   const destination = router.query.p?.toString() || '/';
-    //   router.replace(destination);
-    // }
+    // setError(null);
     await signIn('credentials', { email, password });
   };
 
@@ -135,6 +130,35 @@ const LoginPage = () => {
               >
                 <Link underline="always">Do not have an account? Register</Link>
               </NextLink>
+            </Grid>
+
+            <Grid
+              item
+              xs={12}
+              display="flex"
+              flexDirection={'column'}
+              justifyContent={'end'}
+            >
+              <Divider sx={{ width: '100%', mb: 2 }} />
+              {Object.values(providers).map((provider: any) => {
+                if (provider.id === 'credentials') {
+                  return <div key={providers.id + provider.name}></div>;
+                }
+
+                return (
+                  <Button
+                    key={providers.id + provider.name}
+                    variant="outlined"
+                    fullWidth
+                    color="primary"
+                    sx={{ mb: 1 }}
+                    startIcon={<GitHub />}
+                    onClick={() => signIn(provider.id)}
+                  >
+                    {provider.name}
+                  </Button>
+                );
+              })}
             </Grid>
           </Grid>
         </Box>

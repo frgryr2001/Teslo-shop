@@ -1,4 +1,4 @@
-import { ISize, IType } from "./";
+import { ISize, IType } from './';
 
 export interface ICartProduct {
   _id: string;
@@ -9,4 +9,5 @@ export interface ICartProduct {
   slug: string;
   title: string;
   quantity: number;
+  gender: string;
 }

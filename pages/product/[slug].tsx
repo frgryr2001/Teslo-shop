@@ -27,6 +27,7 @@ const ProductPage: NextPage<Props> = ({ product }) => {
     slug: product.slug,
     title: product.title,
     quantity: 1,
+    gender: product.gender,
   });
 
   const onSelectedSize = (size: ISize) => {
@@ -147,6 +148,7 @@ export const getStaticPaths: GetStaticPaths = async (ctx) => {
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { slug = '' } = params as { slug: string };
   const product = await dbProducts.getProductBySlug(slug);
+
   if (!product) {
     return {
       redirect: {

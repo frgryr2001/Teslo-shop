@@ -1,7 +1,10 @@
 import { FC, useReducer, PropsWithChildren, useEffect } from 'react';
 import Cookie from 'js-cookie';
-import { ICartProduct } from '../../interfaces';
+import { ICartProduct, ShippingAddress } from '../../interfaces';
 import { cartReducer, CartContext } from './';
+import requestApi from '../../api/requestApi';
+import { IOrder } from '../../interfaces/order';
+import axios from 'axios';
 
 export interface CartState {
   isLoaded: boolean;
@@ -11,16 +14,6 @@ export interface CartState {
   tax: number;
   total: number;
   ShippingAddress?: ShippingAddress;
-}
-export interface ShippingAddress {
-  firstName: string;
-  lastName: string;
-  address: string;
-  address2: string;
-  zip: string;
-  city: string;
-  country: string;
-  phone: string;
 }
 
 const CART_INITIAL_STATE: CartState = {
@@ -83,7 +76,7 @@ export const CartProvider: FC<PropsWithChildren> = ({ children }) => {
       0
     );
     const subTotal = state.cart.reduce(
-      (acc, item) => item.quantity * item.price,
+      (acc, item) => item.quantity * item.price + acc,
       0
     );
     const taxRate = Number(process.env.NEXT_PUBLIC_TAX_RATE) * 1 || 0;
@@ -123,6 +116,48 @@ export const CartProvider: FC<PropsWithChildren> = ({ children }) => {
     Cookie.set('phone', address.phone);
     dispatch({ type: '[Cart] - Update address', payload: address });
   };
+  const createOrder = async (): Promise<{
+    hasError: boolean;
+    message: string;
+  }> => {
+    if (!state.ShippingAddress) {
+      throw new Error('There are no delivery addresses');
+    }
+    const body: IOrder = {
+      orderItems: state.cart.map((p) => {
+        return {
+          ...p,
+          size: p.size!,
+        };
+      }),
+      ShippingAddress: state.ShippingAddress,
+      numberOfItems: state.numberOfItems,
+      subTotal: state.subTotal,
+      tax: state.tax,
+      total: state.total,
+      isPaid: false,
+    };
+    try {
+      const { data } = await requestApi.post<IOrder>('/orders', body);
+      dispatch({ type: '[Cart] - Order complete' });
+      return {
+        hasError: false,
+        message: data._id!,
+      };
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        return {
+          hasError: true,
+          message: error.response?.data.message,
+        };
+      }
+      return {
+        hasError: true,
+        message: 'Something went an error',
+      };
+    }
+  };
+
   return (
     <CartContext.Provider
       value={{
@@ -131,6 +166,8 @@ export const CartProvider: FC<PropsWithChildren> = ({ children }) => {
         updateProductInCart,
         removeProductInCart,
         updateAddress,
+        // orders
+        createOrder,
       }}
     >
       {children}

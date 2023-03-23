@@ -1,7 +1,7 @@
 import { db } from '.';
 import User from '../models/User';
 import bcrypt from 'bcryptjs';
-
+import { v4 as uuidv4 } from 'uuid';
 export const checkUserEmailPassword = async (
   email: string,
   password: string
@@ -36,7 +36,7 @@ export const oAuthToDbUser = async (oAuthEmail: string, oAuthName: string) => {
   const newUser = new User({
     email: oAuthEmail,
     name: oAuthName,
-    password: '@',
+    password: uuidv4(),
     role: 'client',
   });
   await newUser.save();

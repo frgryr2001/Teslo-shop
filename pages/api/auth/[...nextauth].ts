@@ -17,7 +17,7 @@ export const authOptions = {
         },
       },
       async authorize(credentials) {
-        console.log('Credentials', { credentials });
+        // console.log('Credentials', { credentials });
         const user = await dbUsers.checkUserEmailPassword(
           credentials!.email,
           credentials!.password
@@ -37,13 +37,13 @@ export const authOptions = {
     newUser: '/auth/register',
   },
   jwt: {
-    // secret: process.env.JWT_SECRET_SEED,
+    secret: process.env.JWT_SECRET_SEED,
   },
-  // session: {
-  //   maxAge : 2592000, // 30d
-  //   strategy : 'jwt',
-  //   updateAge : 86400
-  // },
+  session: {
+    maxAge: 2592000, // 30d
+    // strategy: 'database',
+    updateAge: 24 * 60 * 60,
+  },
   callbacks: {
     async jwt({ token, user, account, profile, isNewUser }: any) {
       if (account) {

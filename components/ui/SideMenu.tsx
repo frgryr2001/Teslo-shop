@@ -87,11 +87,11 @@ export const SideMenu = () => {
                 <ListItemText primary={'Personal information'} />
               </ListItemButton>
 
-              <ListItemButton>
+              <ListItemButton onClick={() => navagateTo('/orders/history')}>
                 <ListItemIcon>
                   <ConfirmationNumberOutlined />
                 </ListItemIcon>
-                <ListItemText primary={'Order'} />
+                <ListItemText primary={'Order history'} />
               </ListItemButton>
             </>
           )}
