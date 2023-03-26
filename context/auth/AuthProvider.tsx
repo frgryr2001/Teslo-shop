@@ -23,7 +23,6 @@ export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
   const router = useRouter();
   useEffect(() => {
     if (status === 'authenticated') {
-      console.log({ user: data?.user });
       dispatch({ type: '[Auth] - Login', payload: data?.user as IUser });
     }
   }, [data, status]);
@@ -31,18 +30,18 @@ export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
   // useEffect(() => {
   //   checkIsAuthenticated();
   // }, []);
-  const checkIsAuthenticated = async () => {
-    if (Cookies.get('token')) {
-      try {
-        const { data } = await requestApi.get('/user/validate-token');
-        const { token, user } = data;
-        Cookies.set('token', token);
-        dispatch({ type: '[Auth] - Login', payload: user });
-      } catch (error: any) {
-        Cookies.remove('token');
-      }
-    }
-  };
+  // const checkIsAuthenticated = async () => {
+  //   if (Cookies.get('token')) {
+  //     try {
+  //       const { data } = await requestApi.get('/user/validate-token');
+  //       const { token, user } = data;
+  //       Cookies.set('token', token);
+  //       dispatch({ type: '[Auth] - Login', payload: user });
+  //     } catch (error: any) {
+  //       Cookies.remove('token');
+  //     }
+  //   }
+  // };
   const loginUser = async (
     email: string,
     password: string
