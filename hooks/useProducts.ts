@@ -1,6 +1,4 @@
-import useSWR, { SWRConfiguration } from "swr";
-import { IProduct } from "../interfaces";
-
+import useSWR, { SWRConfiguration } from 'swr';
 export const useProducts = <T>(url: string, config: SWRConfiguration = {}) => {
   const { data, error } = useSWR<T>(`/api${url}`, config);
 

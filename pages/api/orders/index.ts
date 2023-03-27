@@ -23,7 +23,6 @@ export default function handler(
 }
 async function createOrder(req: NextApiRequest, res: NextApiResponse<Data>) {
   const { orderItems, total } = req.body as IOrder;
-  console.log('orderItems', { orderItems });
 
   const session: any = await getSession({ req });
 

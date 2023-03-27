@@ -5,6 +5,7 @@ import { cartReducer, CartContext } from './';
 import requestApi from '../../api/requestApi';
 import { IOrder } from '../../interfaces/order';
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
 export interface CartState {
   isLoaded: boolean;
@@ -140,6 +141,7 @@ export const CartProvider: FC<PropsWithChildren> = ({ children }) => {
     try {
       const { data } = await requestApi.post<IOrder>('/orders', body);
       dispatch({ type: '[Cart] - Order complete' });
+      Cookies.remove('cart');
       return {
         hasError: false,
         message: data._id!,
