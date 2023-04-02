@@ -1,11 +1,12 @@
-import mongoose, { Schema, model, Model } from "mongoose";
-import { IProduct } from "../interfaces";
+import mongoose, { Schema, model, Model } from 'mongoose';
+import { IProduct } from '../interfaces';
 
 const productSchema = new Schema(
   {
     description: {
       type: String,
       required: true,
+      default: '',
     },
     images: [{ type: String }],
     inStock: {
@@ -22,8 +23,8 @@ const productSchema = new Schema(
       {
         type: String,
         enum: {
-          values: ["XS", "S", "M", "L", "XL", "XXL", "XXXL"],
-          message: "{VALUE} is not valid",
+          values: ['XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL'],
+          message: '{VALUE} is not valid',
         },
       },
     ],
@@ -40,20 +41,23 @@ const productSchema = new Schema(
     title: {
       type: String,
       required: true,
+      default: '',
     },
     type: {
       type: String,
       enum: {
-        values: ["shirts", "pants", "hoodies", "hats"],
-        message: "{VALUE} is not valid",
+        values: ['shirts', 'pants', 'hoodies', 'hats'],
+        message: '{VALUE} is not valid',
       },
+      default: 'shirts',
     },
     gender: {
       type: String,
       enum: {
-        values: ["men", "women", "kid", "unisex"],
-        message: "{VALUE} is not valid",
+        values: ['men', 'women', 'kid', 'unisex'],
+        message: '{VALUE} is not valid',
       },
+      default: 'women',
     },
   },
   {
@@ -61,8 +65,8 @@ const productSchema = new Schema(
   }
 );
 
-productSchema.index({ title: "text", tags: "text" });
+productSchema.index({ title: 'text', tags: 'text' });
 const Product: Model<IProduct> =
-  mongoose.models.Product || model("Product", productSchema);
+  mongoose.models.Product || model('Product', productSchema);
 
 export default Product;

@@ -36,6 +36,9 @@ export const AdminLayout: FC<Props> = ({
             {icon}
             {title}
           </Typography>
+          <Typography variant="h2" sx={{ mb: 1 }}>
+            {pageDescription}
+          </Typography>
         </Box>
         <Box className="fadeIn">{children}</Box>
       </main>

@@ -1,6 +1,6 @@
-import { db } from ".";
-import Product from "../models/Product";
-import { IProduct } from "../interfaces/";
+import { db } from '.';
+import Product from '../models/Product';
+import { IProduct } from '../interfaces/';
 
 export const getProductBySlug = async (
   slug: string
@@ -14,7 +14,11 @@ export const getProductBySlug = async (
   if (!product) {
     return null;
   }
-  console.log(typeof product);
+  product.images = product.images.map((image) => {
+    return image.includes('http')
+      ? image
+      : `${process.env.HOST_NAME}products/${image}`;
+  });
 
   return JSON.parse(JSON.stringify(product));
 };
@@ -25,7 +29,7 @@ interface ProductSlug {
 export const getAllProductSlugs = async (): Promise<ProductSlug[]> => {
   await db.connect();
 
-  const slugs = await Product.find().select("slug -_id").lean();
+  const slugs = await Product.find().select('slug -_id').lean();
 
   await db.disconnect();
 
@@ -39,7 +43,7 @@ export const getProductsByTerm = async (term: string) => {
   const products = await Product.find({
     $text: { $search: term },
   })
-    .select("title images price inStock slug -_id")
+    .select('title images price inStock slug -_id')
     .lean();
 
   await db.disconnect();

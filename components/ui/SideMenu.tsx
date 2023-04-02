@@ -31,7 +31,6 @@ import { useRouter } from 'next/router';
 
 export const SideMenu = () => {
   const router = useRouter();
-
   const { user, isLoggedIn, logout } = useContext(AuthContext);
   const { isMenuOpen, toggleSideMenu } = useContext(UiContext);
   const [searchTerm, setSearchTerm] = useState<String>('');
@@ -158,21 +157,21 @@ export const SideMenu = () => {
                 <ListItemText primary={'Dashboard'} />
               </ListItemButton>
 
-              <ListItemButton>
+              <ListItemButton onClick={() => navagateTo(`/admin/products`)}>
                 <ListItemIcon>
                   <CategoryOutlined />
                 </ListItemIcon>
                 <ListItemText primary={'Products'} />
               </ListItemButton>
 
-              <ListItemButton>
+              <ListItemButton onClick={() => navagateTo(`/admin/orders`)}>
                 <ListItemIcon>
                   <ConfirmationNumberOutlined />
                 </ListItemIcon>
                 <ListItemText primary={'Orders'} />
               </ListItemButton>
 
-              <ListItemButton>
+              <ListItemButton onClick={() => navagateTo(`/admin/users`)}>
                 <ListItemIcon>
                   <AdminPanelSettings />
                 </ListItemIcon>

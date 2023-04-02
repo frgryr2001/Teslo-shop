@@ -23,7 +23,6 @@ export default function handler(
 }
 async function createOrder(req: NextApiRequest, res: NextApiResponse<Data>) {
   const { orderItems, total } = req.body as IOrder;
-
   const session: any = await getSession({ req });
 
   if (!session) {
@@ -51,6 +50,9 @@ async function createOrder(req: NextApiRequest, res: NextApiResponse<Data>) {
       throw new Error('Invalid sum');
     }
     const userId = session.user._id;
+
+    console.log('userId', userId);
+
     const newOrder = new Order({ ...req.body, isPaid: false, user: userId });
     newOrder.total = Math.round(newOrder.total * 100) / 100;
     await newOrder.save();
