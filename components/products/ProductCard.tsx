@@ -7,10 +7,10 @@ import {
   Grid,
   Link,
   Typography,
-} from "@mui/material";
-import NextLink from "next/link";
-import React, { FC, useMemo, useState } from "react";
-import { IProduct } from "../../interfaces";
+} from '@mui/material';
+import NextLink from 'next/link';
+import React, { FC, useMemo, useState } from 'react';
+import { IProduct } from '../../interfaces';
 
 interface Props {
   product: IProduct;
@@ -22,9 +22,9 @@ export const ProductCard: FC<Props> = ({ product }) => {
 
   const productImage = useMemo(() => {
     if (isHovered) {
-      return `/products/${product.images[1]}`;
+      return product.images[1];
     }
-    return `/products/${product.images[0]}`;
+    return product.images[0];
   }, [isHovered, product.images]);
 
   return (
@@ -50,16 +50,16 @@ export const ProductCard: FC<Props> = ({ product }) => {
                   color="primary"
                   label="Product not available"
                   sx={{
-                    position: "absolute",
+                    position: 'absolute',
                     zIndex: 99,
-                    top: "10px",
-                    left: "10px",
+                    top: '10px',
+                    left: '10px',
                   }}
                 />
               )}
 
               <CardMedia
-                component={"img"}
+                component={'img'}
                 className="fadeIn"
                 image={productImage}
                 alt={product.title}
@@ -71,7 +71,7 @@ export const ProductCard: FC<Props> = ({ product }) => {
       </Card>
 
       <Box
-        sx={{ mt: 1, display: isImageLoading ? "block" : "none" }}
+        sx={{ mt: 1, display: isImageLoading ? 'block' : 'none' }}
         className="fadeIn"
       >
         <Typography fontWeight={700}>{product.title}</Typography>

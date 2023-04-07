@@ -38,9 +38,16 @@ const getProducts = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
 
   await db.disconnect();
 
-  //  TODO: Add pagination
+  const updateProducts = products.map((product) => {
+    product.images = product.images.map((image) => {
+      return image.includes('http')
+        ? image
+        : `${process.env.HOST_NAME}products/${image}`;
+    });
+    return product;
+  });
 
-  return res.status(200).json(products);
+  return res.status(200).json(updateProducts);
 };
 
 const createProduct = async (

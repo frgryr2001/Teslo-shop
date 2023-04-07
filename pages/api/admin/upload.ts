@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import formidable from 'formidable';
-import fs from 'fs';
+// import fs from 'fs';
 import { v2 as cloudinary } from 'cloudinary';
 cloudinary.config(process.env.CLOUDINARY_URL || '');
 type Data = {
