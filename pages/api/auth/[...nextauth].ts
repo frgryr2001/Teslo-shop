@@ -1,9 +1,11 @@
-import NextAuth from 'next-auth';
+import NextAuth, { NextAuthOptions } from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
 import GithubProvider from 'next-auth/providers/github';
+
 import { dbUsers } from '../../../database';
 
-export const authOptions = {
+export const authOptions: NextAuthOptions = {
+  secret: process.env.NEXTAUTH_SECRET,
   // Configure one or more authentication providers
   providers: [
     Credentials({
@@ -31,17 +33,16 @@ export const authOptions = {
     }),
     // ...add more providers here
   ],
+  //   adapter: MongoDBAdapter(clientPromise),
 
   pages: {
     signIn: '/auth/login',
     newUser: '/auth/register',
   },
-  jwt: {
-    secret: process.env.JWT_SECRET_SEED,
-  },
+  jwt: {},
   session: {
     maxAge: 2592000, // 30d
-    // strategy: 'database',
+    strategy: 'jwt',
     updateAge: 24 * 60 * 60,
   },
   callbacks: {

@@ -27,21 +27,6 @@ export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
     }
   }, [data, status]);
 
-  // useEffect(() => {
-  //   checkIsAuthenticated();
-  // }, []);
-  // const checkIsAuthenticated = async () => {
-  //   if (Cookies.get('token')) {
-  //     try {
-  //       const { data } = await requestApi.get('/user/validate-token');
-  //       const { token, user } = data;
-  //       Cookies.set('token', token);
-  //       dispatch({ type: '[Auth] - Login', payload: user });
-  //     } catch (error: any) {
-  //       Cookies.remove('token');
-  //     }
-  //   }
-  // };
   const loginUser = async (
     email: string,
     password: string

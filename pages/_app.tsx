@@ -8,9 +8,12 @@ import { SessionProvider } from 'next-auth/react';
 import { PayPalScriptProvider } from '@paypal/react-paypal-js';
 import { AuthProvider } from '../context/auth/AuthProvider';
 
-export default function App({ Component, pageProps }: AppProps) {
+export default function App({
+  Component,
+  pageProps: { session, ...pageProps },
+}: AppProps) {
   return (
-    <SessionProvider>
+    <SessionProvider session={session}>
       <PayPalScriptProvider
         options={{
           'client-id': process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID || '',
