@@ -36,8 +36,8 @@ export const authOptions: NextAuthOptions = {
   //   adapter: MongoDBAdapter(clientPromise),
 
   pages: {
-    signIn: '/auth/login',
-    newUser: '/auth/register',
+    // signIn: '/auth/login',
+    // newUser: '/auth/register',
   },
   jwt: {},
   session: {
