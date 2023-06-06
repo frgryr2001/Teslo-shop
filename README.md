@@ -39,7 +39,7 @@ http://localhost:3000/api/seed
 
 ### Client:
 
-
+<p align="center">
   ![teslo](https://github.com/frgryr2001/Teslo-shop/blob/main/gif/home.gif)
 
 
@@ -61,5 +61,5 @@ http://localhost:3000/api/seed
 
 
   ![teslo](https://github.com/frgryr2001/Teslo-shop/blob/main/gif/history.png)
-
+<p/>
 ### Admin:
