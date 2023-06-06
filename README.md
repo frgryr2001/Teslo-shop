@@ -38,32 +38,32 @@ http://localhost:3000/api/seed
 ## Demo:
 
 ### Client:
-<div style="text-align: center;">
-  ![teslo](https://github.com/frgryr2001/Teslo-shop/blob/main/gif/home.gif)
+<div style="display: flex; justify-content: center;">
+  <img src="https://github.com/frgryr2001/Teslo-shop/blob/main/gif/home.gif" alt="teslo" />
 </div>
 
-<div style="text-align: center;">
-  ![teslo](https://github.com/frgryr2001/Teslo-shop/blob/main/gif/responsive.gif)
+<div style="display: flex; justify-content: center;">
+  <img src="https://github.com/frgryr2001/Teslo-shop/blob/main/gif/responsive.gif" alt="teslo" />
 </div>
 
-<div style="text-align: center;">
-  ![teslo](https://github.com/frgryr2001/Teslo-shop/blob/main/gif/category.gif)
+<div style="display: flex; justify-content: center;">
+  <img src="https://github.com/frgryr2001/Teslo-shop/blob/main/gif/category.gif" alt="teslo" />
 </div>
 
-<div style="text-align: center;">
-  ![teslo](https://github.com/frgryr2001/Teslo-shop/blob/main/gif/addtoCart.gif)
+<div style="display: flex; justify-content: center;">
+  <img src="https://github.com/frgryr2001/Teslo-shop/blob/main/gif/addtoCart.gif" alt="teslo" />
 </div>
 
-<div style="text-align: center;">
-  ![teslo](https://github.com/frgryr2001/Teslo-shop/blob/main/gif/addAddress.gif)
+<div style="display: flex; justify-content: center;">
+  <img src="https://github.com/frgryr2001/Teslo-shop/blob/main/gif/addAddress.gif" alt="teslo" />
 </div>
 
-<div style="text-align: center;">
-  ![teslo](https://github.com/frgryr2001/Teslo-shop/blob/main/gif/checkout.gif)
+<div style="display: flex; justify-content: center;">
+  <img src="https://github.com/frgryr2001/Teslo-shop/blob/main/gif/checkout.gif" alt="teslo" />
 </div>
 
-<div style="text-align: center;">
-  ![teslo](https://github.com/frgryr2001/Teslo-shop/blob/main/gif/history.png)
+<div style="display: flex; justify-content: center;">
+  <img src="https://github.com/frgryr2001/Teslo-shop/blob/main/gif/history.png" alt="teslo" />
 </div>
 
 ### Admin:
