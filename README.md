@@ -38,28 +38,32 @@ http://localhost:3000/api/seed
 ## Demo:
 
 ### Client:
-
-<p align="center">
+<div style="text-align: center;">
   ![teslo](https://github.com/frgryr2001/Teslo-shop/blob/main/gif/home.gif)
+</div>
 
-
+<div style="text-align: center;">
   ![teslo](https://github.com/frgryr2001/Teslo-shop/blob/main/gif/responsive.gif)
+</div>
 
-
-
+<div style="text-align: center;">
   ![teslo](https://github.com/frgryr2001/Teslo-shop/blob/main/gif/category.gif)
+</div>
 
-
+<div style="text-align: center;">
   ![teslo](https://github.com/frgryr2001/Teslo-shop/blob/main/gif/addtoCart.gif)
+</div>
 
-
+<div style="text-align: center;">
   ![teslo](https://github.com/frgryr2001/Teslo-shop/blob/main/gif/addAddress.gif)
+</div>
 
-
+<div style="text-align: center;">
   ![teslo](https://github.com/frgryr2001/Teslo-shop/blob/main/gif/checkout.gif)
+</div>
 
-
-
+<div style="text-align: center;">
   ![teslo](https://github.com/frgryr2001/Teslo-shop/blob/main/gif/history.png)
-<p/>
+</div>
+
 ### Admin:
