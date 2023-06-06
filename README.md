@@ -32,3 +32,9 @@ Call to API seed data in project configuration:
 ```
 http://localhost:3000/api/seed
 ```
+
+<!-- upload gif -->
+
+## My gif:
+
+![teslo](https://github.com/frgryr2001/Teslo-shop/blob/main/gif/home.gif)
