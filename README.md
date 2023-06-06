@@ -74,7 +74,7 @@ http://localhost:3000/api/seed
 
 
 <div style="display: flex; justify-content: center;">
-  <img src="https://github.com/frgryr2001/Teslo-shop/blob/main/gif/adminProduct.png" alt="teslo" />
+  <img src="https://github.com/frgryr2001/Teslo-shop/blob/main/gif/adminProducts.png" alt="teslo" />
 </div>
 
 <div style="display: flex; justify-content: center;">
