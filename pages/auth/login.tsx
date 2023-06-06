@@ -14,7 +14,7 @@ import NextLink from 'next/link';
 import { GetServerSideProps } from 'next';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { validations } from '../../utils';
-import { getSession, signIn, getProviders } from 'next-auth/react';
+import { getSession, signIn, getProviders, useSession } from 'next-auth/react';
 import { ErrorOutline, GitHub } from '@mui/icons-material';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
@@ -172,8 +172,6 @@ export const getServerSideProps: GetServerSideProps = async ({
   query,
 }) => {
   const session = await getSession({ req });
-  //   console.log({ session });
-
   const { p = '/' } = query;
   if (session) {
     return {
