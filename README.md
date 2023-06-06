@@ -67,3 +67,24 @@ http://localhost:3000/api/seed
 </div>
 
 ### Admin:
+
+<div style="display: flex; justify-content: center;">
+  <img src="https://github.com/frgryr2001/Teslo-shop/blob/main/gif/admin.png" alt="teslo" />
+</div>
+
+
+<div style="display: flex; justify-content: center;">
+  <img src="https://github.com/frgryr2001/Teslo-shop/blob/main/gif/adminProduct.png" alt="teslo" />
+</div>
+
+<div style="display: flex; justify-content: center;">
+  <img src="https://github.com/frgryr2001/Teslo-shop/blob/main/gif/addProduct.png" alt="teslo" />
+</div>
+
+<div style="display: flex; justify-content: center;">
+  <img src="https://github.com/frgryr2001/Teslo-shop/blob/main/gif/viewOrderAdmin.png" alt="teslo" />
+</div>
+
+<div style="display: flex; justify-content: center;">
+  <img src="https://github.com/frgryr2001/Teslo-shop/blob/main/gif/viewAllUsers.png" alt="teslo" />
+</div>
