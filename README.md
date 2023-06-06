@@ -39,28 +39,27 @@ http://localhost:3000/api/seed
 
 ### Client:
 
-<p align="center">
+
   ![teslo](https://github.com/frgryr2001/Teslo-shop/blob/main/gif/home.gif)
-</p>
-<p align="center">
+
+
   ![teslo](https://github.com/frgryr2001/Teslo-shop/blob/main/gif/responsive.gif)
-</p>
 
-<p align="center">
+
+
   ![teslo](https://github.com/frgryr2001/Teslo-shop/blob/main/gif/category.gif)
-</p>
-<p align="center">
-  ![teslo](https://github.com/frgryr2001/Teslo-shop/blob/main/gif/addtoCart.gif)
-</p>
-<p align="center">
-  ![teslo](https://github.com/frgryr2001/Teslo-shop/blob/main/gif/addAddress.gif)
-</p>
-<p align="center">
-  ![teslo](https://github.com/frgryr2001/Teslo-shop/blob/main/gif/checkout.gif)
-</p>
 
-<p align="center">
+
+  ![teslo](https://github.com/frgryr2001/Teslo-shop/blob/main/gif/addtoCart.gif)
+
+
+  ![teslo](https://github.com/frgryr2001/Teslo-shop/blob/main/gif/addAddress.gif)
+
+
+  ![teslo](https://github.com/frgryr2001/Teslo-shop/blob/main/gif/checkout.gif)
+
+
+
   ![teslo](https://github.com/frgryr2001/Teslo-shop/blob/main/gif/history.png)
-</p>
 
 ### Admin:
